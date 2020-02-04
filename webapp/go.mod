@@ -1,4 +1,4 @@
-module github.com/xiam/go-playground/webapp
+module github.com/cyber-republic/go-playground/webapp
 
 go 1.13
 

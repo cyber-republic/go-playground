@@ -18,7 +18,7 @@ var (
 	flagHelp         = flag.Bool("h", false, "Show help.")
 
 	flagListenAddr        = flag.String("l", ":3000", "Listen address.")
-	flagCompileURL        = flag.String("c", "https://play.golang.org/compile?output=json", "Compiler service URL.")
+	flagCompileURL        = flag.String("c", "http://192.168.1.23:8080/compile?output=json", "Compiler service URL.")
 	flagAllowOriginHeader = flag.String("o", "*", "Access-Control-Allow-Origin header.")
 )
 

@@ -36,9 +36,7 @@ docker-run:
 		-d \
 		-p 0.0.0.0:3000:3000 \
 		--name $(CONTAINER_NAME) \
-		-t $(IMAGE_NAME):latest \
-			bash -c \
-				'webapp -c http://192.168.1.23:8080/compile?output=json'
+		-t $(IMAGE_NAME):latest
 
 docker-push: docker-build
 	docker tag $(IMAGE_NAME):latest $(IMAGE_NAME):$(IMAGE_TAG) && \

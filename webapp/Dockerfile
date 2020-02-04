@@ -16,7 +16,7 @@ WORKDIR /go/src/github.com/cyber-republic/go-playground/webapp/
 
 COPY . .
 
-RUN go install github.com/xiam/go-playground/webapp
+RUN go install github.com/cyber-republic/go-playground/webapp
 
 FROM debian:buster
 
