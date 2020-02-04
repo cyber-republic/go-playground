@@ -1,0 +1,46 @@
+IMAGE_NAME        ?= cyberrepublic/go-playground-webapp
+IMAGE_TAG         ?= 1.0.0
+IMAGE_VERSION     ?=
+CONTAINER_NAME    ?= go-playground-webapp
+
+.PHONY: vendor static
+
+build: clean vendor fmt
+	go build -o bin/webapp *.go
+
+run: static
+	go run *.go
+
+static:
+	$(MAKE) -C static
+
+vendor:
+	go mod vendor
+
+fmt:
+	for i in $$(find -name \*.go | grep -v vendor); do \
+		gofmt -w $$i && \
+		goimports -w $$i; \
+	done
+
+clean:
+	rm -rf bin/ && \
+	mkdir -p bin
+
+docker-build: vendor
+	docker build -t $(IMAGE_NAME):latest .
+
+docker-run:
+	(docker container stop $(CONTAINER_NAME) || true) && (docker container rm -f $(CONTAINER_NAME) || true) && \
+	docker run \
+		-d \
+		-p 0.0.0.0:3000:3000 \
+		--name $(CONTAINER_NAME) \
+		-t $(IMAGE_NAME):latest \
+			bash -c \
+				'webapp -c http://192.168.1.23:8080/compile?output=json'
+
+docker-push: docker-build
+	docker tag $(IMAGE_NAME):latest $(IMAGE_NAME):$(IMAGE_TAG) && \
+	docker push $(IMAGE_NAME):latest && \
+	docker push $(IMAGE_NAME):$(IMAGE_TAG)
