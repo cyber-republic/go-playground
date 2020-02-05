@@ -17,16 +17,6 @@ static:
 vendor:
 	go mod vendor
 
-fmt:
-	for i in $$(find -name \*.go | grep -v vendor); do \
-		gofmt -w $$i && \
-		goimports -w $$i; \
-	done
-
-clean:
-	rm -rf bin/ && \
-	mkdir -p bin
-
 docker-build: vendor
 	docker build -t $(IMAGE_NAME):latest .
 
@@ -38,7 +28,7 @@ docker-run:
 		--name $(CONTAINER_NAME) \
 		-t $(IMAGE_NAME):latest
 
-docker-push: docker-build
+docker-push:
 	docker tag $(IMAGE_NAME):latest $(IMAGE_NAME):$(IMAGE_TAG) && \
 	docker push $(IMAGE_NAME):latest && \
 	docker push $(IMAGE_NAME):$(IMAGE_TAG)
