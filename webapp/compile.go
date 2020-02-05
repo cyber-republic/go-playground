@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 
 	"github.com/boltdb/bolt"
 )
@@ -25,7 +26,7 @@ func compileHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err := passThru(w, r); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("compile error: %q", err)
+		log.Printf("Compile error: %q", err)
 		fmt.Fprintln(w, "Compile server error.")
 	}
 }
@@ -35,6 +36,19 @@ func passThru(w io.Writer, req *http.Request) error {
 
 	_, err := io.Copy(&body, io.LimitReader(req.Body, maxSnippetSize+1))
 	req.Body.Close()
+
+	bodyDecoded, err := url.ParseQuery(body.String())
+	if err != nil {
+		log.Printf("Compile error: %q", err)
+		fmt.Fprintln(w, "Compile server error.")
+		return err
+	}
+	var goplaygroundURL string = *flagCompileURL
+	for k, v := range bodyDecoded {
+		if k == "goplaygroundURL" {
+			goplaygroundURL = fmt.Sprintf("%s/compile?output=json", v[0])
+		}
+	}
 
 	if err != nil {
 		return fmt.Errorf("Error reading body: %q", err)
@@ -61,7 +75,7 @@ func passThru(w io.Writer, req *http.Request) error {
 
 	if data == nil || *flagDisableCache {
 		client := http.Client{}
-		r, err := client.Post(*flagCompileURL, req.Header.Get("Content-Type"), &body)
+		r, err := client.Post(goplaygroundURL, req.Header.Get("Content-Type"), &body)
 		if err != nil {
 			return err
 		}

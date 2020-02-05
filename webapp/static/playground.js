@@ -48,7 +48,7 @@ function HTTPTransport() {
       var playing;
       $.ajax(playgroundOptions.compileURL, {
         type: 'POST',
-        data: {'version': 2, 'body': body},
+        data: {'version': 2, 'body': body, 'goplaygroundURL': playgroundOptions.goplaygroundURL},
         dataType: 'json',
         success: function(data) {
           if (seq != cur) return;
@@ -177,6 +177,7 @@ var defaultOptions = {
 
 function goPlaygroundOptions(opts) {
   playgroundOptions = $.extend(defaultOptions, playgroundOptions, opts);
+  console.log(playgroundOptions)
 }
 
 goPlaygroundOptions({});

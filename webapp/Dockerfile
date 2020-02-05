@@ -30,10 +30,10 @@ COPY --from=node-builder /app/static /var/app/static
 
 RUN mkdir -p $HOME_DIR && \
     useradd -d $HOME_DIR elauser && \
-    chown -R elauser:elauser $HOME_DIR
+    chown -R elauser:elauser $HOME_DIR /var/app
 
 USER elauser
 
 WORKDIR /var/app
 
-CMD [ "webapp" ]
+CMD [ "webapp", "-allow-share" ]

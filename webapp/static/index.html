@@ -10,54 +10,61 @@
     <link rel="shortcut icon" href="/static/favicon.ico" sizes="16x16 32x32" type="image/vnd.microsoft.icon">
 
     <script>
-    $(document).ready(function() {
-      playground({
-        'theme':        'material',
-        'codeEl':       '#code',
-        'outputEl':     '#output',
-        'runEl':        '#run',
-        'fmtEl':        '#fmt',
-        'fmtImportEl':  '#imports',
-        {{if $.Share}}
-        'shareEl':      '#share',
-        'shareURLEl':   '#shareURL',
-        {{end}}
-        'enableHistory': true
-      });
-      playgroundEmbed({
-        'theme':        'material',
-        'codeEl':       '#code',
-        {{if $.Share}}
-        'shareEl':      '#share',
-        {{end}}
-        'embedEl':      '#embed',
-        'embedLabelEl': '#embedLabel',
-        'embedHTMLEl':  '#shareURL'
-      });
-      // Avoid line wrapping.
-      var about = $('#about');
-      about.click(function(e) {
-        if ($(e.target).is('a')) {
-          return;
-        }
-        about.hide();
-      });
-      $('#aboutButton').click(function() {
-        if (about.is(':visible')) {
-          about.hide();
-          return;
-        }
-        about.show();
-      })
-      // Fire Google Analytics events for Run/Share button clicks.
-      if (window.trackEvent) {
-        $('#run').click(function() {
-          window.trackEvent('playground', 'click', 'run-button');
-        });
-        $('#share').click(function() {
-          window.trackEvent('playground', 'click', 'share-button');
+      function setGoPlaygroundURL(url) {
+        goPlaygroundOptions({
+          'goplaygroundURL': url
         });
       }
+    </script>
+    <script>
+      $(document).ready(function() {
+        playground({
+          'theme':        'material',
+          'codeEl':       '#code',
+          'outputEl':     '#output',
+          'runEl':        '#run',
+          'fmtEl':        '#fmt',
+          'fmtImportEl':  '#imports',
+          {{if $.Share}}
+          'shareEl':      '#share',
+          'shareURLEl':   '#shareURL',
+          {{end}}
+          'enableHistory': true
+        });
+        playgroundEmbed({
+          'theme':        'material',
+          'codeEl':       '#code',
+          {{if $.Share}}
+          'shareEl':      '#share',
+          {{end}}
+          'embedEl':      '#embed',
+          'embedLabelEl': '#embedLabel',
+          'embedHTMLEl':  '#shareURL'
+        });
+        // Avoid line wrapping.
+        var about = $('#about');
+        about.click(function(e) {
+          if ($(e.target).is('a')) {
+            return;
+          }
+          about.hide();
+        });
+        $('#aboutButton').click(function() {
+          if (about.is(':visible')) {
+            about.hide();
+            return;
+          }
+          about.show();
+        })
+        // Fire Google Analytics events for Run/Share button clicks.
+        if (window.trackEvent) {
+          $('#run').click(function() {
+            window.trackEvent('playground', 'click', 'run-button');
+          });
+          $('#share').click(function() {
+            window.trackEvent('playground', 'click', 'share-button');
+          });
+        }
     });
     </script>
   </head>
@@ -65,16 +72,19 @@
     <div id="banner">
       <div id="head" itemprop="name">Nucleus Go Playground</div>
       <div id="controls">
-        <input type="button" value="Run" id="run">
-        <input type="button" value="Format" id="fmt">
-        {{if $.Share}}
-        <input type="button" value="Share" id="share">
-        <input type="text" id="shareURL">
-        <label id="embedLabel">
-          <input type="checkbox" id="embed">
-          embed
-        </label>
-        {{end}}
+        <form>
+          <input type="text" value="http://localhost:8080" name="goplaygroundURL" id="goplaygroundURL">
+          <input type="button" value="Run" id="run" onclick="setGoPlaygroundURL(document.getElementById('goplaygroundURL').value)">
+          <input type="button" value="Format" id="fmt">
+          {{if $.Share}}
+          <input type="button" value="Share" id="share">
+          <input type="text" id="shareURL">
+          <label id="embedLabel">
+            <input type="checkbox" id="embed">
+            embed
+          </label>
+          {{end}}
+        </form>
       </div>
       <div id="aboutControls">
         <input type="button" value="About" id="aboutButton">
