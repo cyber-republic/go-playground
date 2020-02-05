@@ -1,7 +1,7 @@
-IMAGE_NAME        ?= cyberrepublic/go-playground
+IMAGE_NAME        ?= cyberrepublic/go-playground-sandbox
 IMAGE_TAG         ?= 1.0.0
 IMAGE_VERSION     ?=
-CONTAINER_NAME    ?= go-playground
+CONTAINER_NAME    ?= go-playground-sandbox
 
 docker-build:
 	docker build -t $(IMAGE_NAME):latest .

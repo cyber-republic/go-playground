@@ -2,8 +2,9 @@
 - Install docker
 
 ### How to run
-## Go Playground Service
+## Go Playground Sandbox
 ```
+cd sandbox;
 make docker-run
 ```
 
@@ -14,8 +15,9 @@ make docker-run
 ```
 
 ### Debugging
-## Build and Push Go Playground Service
+## Build and Push Go Playground Sandbox
 ``` 
+cd sandbox;
 make docker-build;
 make docker-push
 ```
@@ -26,3 +28,5 @@ cd webapp;
 make docker-build;
 make docker-push
 ```
+
+### Big Thanks to: [https://github.com/xiam/go-playground](https://github.com/xiam/go-playground)
