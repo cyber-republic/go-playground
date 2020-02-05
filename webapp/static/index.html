@@ -105,12 +105,25 @@
       </p>
       <p>
         There are limitations to the programs than can be run in this
-        playground, but that really depends on the external compilation
-        service.
+        playground, so not all features may be available.
       </p>
       <p>
         You can use this playground to interact with <a href="https://github.com/cyber-republic/elastos-smartweb-service">Elastos Smartweb Service</a>
         using a <a href="https://github.com/cyber-republic/go-grpc-adenine">Go client library</a>.
+      </p>
+
+      <p><b>How to Use this Playground</b></p>
+      <p>
+        Replace the URL to your own Go Playground URL. This URL should point to a server running docker image
+        <a href="https://hub.docker.com/repository/docker/cyberrepublic/go-playground">cyberrepublic/go-playground</a>.
+      </p>
+      <p>
+        Run the following command to automatically provision everything:<br>
+        docker run -p 0.0.0.0:8080:8080 --name go-playground -t cyberrepublic/go-playground:latest
+      </p>
+      <p>
+        Then, go back to the main page and set the URL to your own. NOTE: You may also run the docker container at a particular
+        domain such as "http://example.com".
       </p>
     </div>
 
