@@ -27,6 +27,10 @@ curl -o /srv/docker/nginx.tmpl https://raw.githubusercontent.com/cyber-republic/
 curl -o /etc/systemd/system/docker-compose-app.service https://raw.githubusercontent.com/cyber-republic/go-playground/master/webapp/prod/docker-compose-app.service
 systemctl enable docker-compose-app
 
+# start docker and enable docker
+systemctl start docker
+systemctl enable docker
+
 # start up the application via docker-compose
 cd /src/docker
 docker-compose up -d
