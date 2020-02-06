@@ -1,46 +1,47 @@
-version: "3.3"
+version: "2"
 
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
+    container_name: nginx-proxy
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - nginx_certs:/etc/nginx/certs
+      - nginx_conf:/etc/nginx/conf.d
       - nginx_vhost:/etc/nginx/vhost.d
       - nginx_html:/usr/share/nginx/html
+      - nginx_dhparam:/etc/nginx/dhparam
+      - nginx_certs:/etc/nginx/certs
       - /var/run/docker.sock:/tmp/docker.sock:ro
-    networks:
-      - webapp_net
+    network_mode: bridge
 
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-letsencrypt
+    volumes_from:
+      - nginx-proxy
     volumes:
-      - nginx_certs:/etc/nginx/certs
-      - nginx_vhost:/etc/nginx/vhost.d
-      - nginx_html:/usr/share/nginx/html
+      - nginx_certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - DEFAULT_EMAIL=support@nucleusconsole.com
-    networks:
-      - webapp_net
+    network_mode: bridge
 
   webapp:
     image: cyberrepublic/go-playground-webapp:latest
+    container_name: webapp
     volumes:
       - playgrounddb_data:/var/app
     environment:
       - VIRTUAL_HOST=goplaygroundapp.nucleusconsole.com
       - LETSENCRYPT_HOST=goplaygroundapp.nucleusconsole.com
-    networks:
-      - webapp_net
-
-networks:
-  webapp_net:
+    network_mode: bridge
 
 volumes:
-  nginx_certs:
+  nginx_conf:
   nginx_vhost:
   nginx_html:
+  nginx_dhparam:
+  nginx_certs:
   playgrounddb_data:
