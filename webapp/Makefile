@@ -24,7 +24,7 @@ docker-run:
 	(docker container stop $(CONTAINER_NAME) || true) && (docker container rm -f $(CONTAINER_NAME) || true) && \
 	docker run \
 		-d \
-		-p 0.0.0.0:3000:3000 \
+		-p 0.0.0.0:3000:80 \
 		--name $(CONTAINER_NAME) \
 		-t $(IMAGE_NAME):latest
 

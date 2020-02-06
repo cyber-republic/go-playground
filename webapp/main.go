@@ -17,7 +17,7 @@ var (
 	flagDisableCache = flag.Bool("z", false, "Disable cache.")
 	flagHelp         = flag.Bool("h", false, "Show help.")
 
-	flagListenAddr        = flag.String("l", ":3000", "Listen address.")
+	flagListenAddr        = flag.String("l", ":80", "Listen address.")
 	flagCompileURL        = flag.String("c", "http://localhost:8080/compile?output=json", "Compiler service URL.")
 	flagAllowOriginHeader = flag.String("o", "*", "Access-Control-Allow-Origin header.")
 )

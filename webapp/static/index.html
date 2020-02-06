@@ -73,7 +73,7 @@
       <div id="head" itemprop="name">Nucleus Go Playground</div>
       <div id="controls">
         <form>
-          <input type="text" value="http://localhost:8080" name="goplaygroundURL" id="goplaygroundURL">
+          <input type="text" value="http://GoPlaygroundIP:Port" name="goplaygroundURL" id="goplaygroundURL">
           <input type="button" value="Run" id="run" onclick="setGoPlaygroundURL(document.getElementById('goplaygroundURL').value)">
           <input type="button" value="Format" id="fmt">
           {{if $.Share}}
@@ -118,12 +118,12 @@
         <a href="https://hub.docker.com/repository/docker/cyberrepublic/go-playground">cyberrepublic/go-playground</a>.
       </p>
       <p>
-        Run the following command to automatically provision everything:<br>
+        Run the following command to automatically provision everything:<br><br>
         docker run -p 0.0.0.0:8080:8080 --name go-playground-sandbox -t cyberrepublic/go-playground-sandbox:latest
       </p>
       <p>
-        Then, go back to the main page and set the URL to your own. NOTE: You may also run the docker container at a particular
-        domain such as "http://example.com".
+        Then, go back to the main page and set the URL to your own http://IP:port. This playground must be publicly
+        accessible. NOTE: You may also run the docker container at a particular domain such as "http://example.com".
       </p>
     </div>
 
