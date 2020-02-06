@@ -19,9 +19,8 @@ curl -o /srv/docker/docker-compose.yml https://raw.githubusercontent.com/cyber-r
 # copy .env.sample file
 curl -o /srv/docker/.env https://raw.githubusercontent.com/cyber-republic/go-playground/master/webapp/prod/.env.sample
 
-# copy nginx.tmpl file
-curl -o /srv/docker/nginx.tmpl https://raw.githubusercontent.com/cyber-republic/go-playground/master/webapp/prod/nginx.tmpl
-
+# download the latest version of nginx.tmpl
+curl -o /srv/docker/nginx.tmpl https://raw.githubusercontent.com/jwilder/nginx-proxy/master/nginx.tmpl
 # copy in systemd unit file and register it so our compose file runs
 # on system restart
 curl -o /etc/systemd/system/docker-compose-app.service https://raw.githubusercontent.com/cyber-republic/go-playground/master/webapp/prod/docker-compose-app.service
@@ -32,5 +31,7 @@ systemctl start docker
 systemctl enable docker
 
 # start up the application via docker-compose
-cd /src/docker
+cd /srv/docker
+source .env
+docker network create $NETWORK $NETWORK_OPTIONS
 docker-compose up -d

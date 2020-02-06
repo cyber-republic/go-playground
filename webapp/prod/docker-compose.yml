@@ -68,6 +68,9 @@ services:
       VIRTUAL_HOST: ${WEBAPP_URL:-goplaygroundapp.nucleusconsole.com}
       LETSENCRYPT_HOST: ${WEBAPP_URL:-goplaygroundapp.nucleusconsole.com}
 
+volumes:
+  playgrounddb_data:
+
 networks:
   default:
     external:
