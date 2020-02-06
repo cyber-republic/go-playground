@@ -8,7 +8,7 @@ services:
     volumes:
       - type: volume
         source: playgrounddbdata
-        target: /var/app/playground.db
+        target: /var/app
     networks:
       - webapp_net
 
