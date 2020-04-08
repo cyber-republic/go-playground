@@ -1,5 +1,5 @@
 IMAGE_NAME        ?= cyberrepublic/go-playground-webapp
-IMAGE_TAG         ?= 1.0.0
+IMAGE_TAG         ?= 2.0.0
 IMAGE_VERSION     ?=
 CONTAINER_NAME    ?= go-playground-webapp
 

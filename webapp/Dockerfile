@@ -14,7 +14,7 @@ FROM golang:1.13 AS go-builder
 
 WORKDIR /go/src/github.com/cyber-republic/go-playground/webapp/
 
-COPY .. .
+COPY . .
 
 RUN go install github.com/cyber-republic/go-playground/webapp
 

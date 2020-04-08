@@ -1,10 +1,12 @@
 IMAGE_NAME        ?= cyberrepublic/go-playground-sandbox
-IMAGE_TAG         ?= 1.0.0
+IMAGE_TAG         ?= 2.0.0
 IMAGE_VERSION     ?=
 CONTAINER_NAME    ?= go-playground-sandbox
 
 docker-build:
-	docker build -t $(IMAGE_NAME):latest .
+	docker build -f ./sandbox-basic.Dockerfile -t go-playground-sandbox-basic:latest . && \
+	docker image rm -f $(IMAGE_NAME):latest && \
+	docker build -f ./Dockerfile -t $(IMAGE_NAME):latest .
 
 docker-run:
 	(docker container stop $(CONTAINER_NAME) || true) && (docker container rm -f $(CONTAINER_NAME) || true) && \
